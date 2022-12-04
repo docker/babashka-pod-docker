@@ -1,0 +1,3 @@
+{:sources ["dev"]
+ :deps {babashka/babashka.pods {:mvn/version "0.1.0"}
+        com.cognitect/transit-clj {:mvn/version "1.0.324"}}}
