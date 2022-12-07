@@ -9,9 +9,9 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 
 ```clojure
 (require '[babashka.pods :as pods])
-(pods/load-pod 'atomisthq/docker "0.1.0")
+(pods/load-pod 'atomisthq/tools.docker "0.1.0")
 ; OR use a locally built pod binary
-#_(pods/load-pod "./parser")
+#_(pods/load-pod "./pod-atomisthq-tools.docker")
 
 ;; load-pod will create this namespace with two vars
 (require '[pod.atomisthq.docker :as docker])

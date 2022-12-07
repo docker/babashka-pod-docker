@@ -1,7 +1,7 @@
 (ns user
   (:require [babashka.pods :as pods]))
 
-(pods/load-pod 'atomisthq/docker "0.1.0")
+(pods/load-pod 'atomisthq/tools.docker "0.1.0")
 (require '[pod.atomisthq.docker :as docker])
 
 ;; parse image names using github.com/docker/distribution 
