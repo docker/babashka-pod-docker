@@ -2,7 +2,7 @@
   (:require [babashka.pods :as pods]))
 
 (pods/load-pod 'atomisthq/docker "0.1.0")
-(require '[pod.babashka.docker :as docker])
+(require '[pod.atomisthq.docker :as docker])
 
 ;; parse image names using github.com/docker/distribution 
 ;; turns golang structs into clojure maps

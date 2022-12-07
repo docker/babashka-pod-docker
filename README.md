@@ -14,7 +14,7 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 #_(pods/load-pod "./parser")
 
 ;; load-pod will create this namespace with two vars
-(require '[pod.babashka.docker :as docker])
+(require '[pod.atomisthq.docker :as docker])
 
 ;; parse image names using github.com/docker/distribution 
 ;; turns golang structs into clojure maps
@@ -31,12 +31,14 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 (docker/parse-dockerfile "FROM \\\n    gcr.io/whatever:tag\nCMD [\"run\"]")
 ```
 
+Loading `'atomisthq/docker` from the pod registry will download the binary into `${user.home}/.babashka/pods/registry` (the `$BABASHKA_PODS_DIR` environment variable will be used if it exists).
+
 ## Building
 
 To build the golang `parser` binary locally, run `go build`.
 
 ```bash
-go build
+go build -o pod-babashka-docker
 ```
 
 ## Contributing

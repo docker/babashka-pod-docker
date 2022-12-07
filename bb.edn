@@ -1,0 +1,15 @@
+{:tasks
+ {:requires ([babashka.fs :as fs])
+  :init (do 
+          (def n "pod-atomisthq-docker")
+          (def os "macos")
+          (def version "0.1.0"))
+  build (shell (format "go build -o %s" n))
+  aarch64 (do 
+            (shell (format "zip %s-%s-%s-%s.zip %s" n version os "aarch64" n) {}))
+  x86     (do 
+            (shell (format "zip %s-%s-%s-%s.zip %s" n version os "x86_64" n) {}))
+  linux-x86 
+          (do
+            (shell (format "zip %s-%s-%s-%s.zip %s" n version "linux" "amd64" n) {}))}}
+

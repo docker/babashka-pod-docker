@@ -60,7 +60,7 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			Format: "json",
 			Namespaces: []babashka.Namespace{
 				{
-					Name: "pod.babashka.docker",
+					Name: "pod.atomisthq.docker",
 					Vars: []babashka.Var{
 						{
 							Name: "parse-image-name",
@@ -74,14 +74,14 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 		}, nil
 	case "invoke":
 		switch message.Var {
-		case "pod.babashka.docker/parse-image-name":
+		case "pod.atomisthq.docker/parse-image-name":
 			args := []string{}
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
 			}
 
 			return parse_uri(args[0])
-		case "pod.babashka.docker/parse-dockerfile":
+		case "pod.atomisthq.docker/parse-dockerfile":
 			args := []string{}
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
