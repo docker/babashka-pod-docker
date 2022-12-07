@@ -1,7 +1,7 @@
 {:tasks
  {:requires ([babashka.fs :as fs])
   :init (do 
-          (def n "pod-atomisthq-docker")
+          (def n "pod-atomisthq-tools.docker")
           (def os "macos")
           (def version "0.1.0"))
   build (shell (format "go build -o %s" n))
