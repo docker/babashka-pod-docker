@@ -41,6 +41,12 @@ To build the golang `parser` binary locally, run `go build`.
 go build -o pod-babashka-docker
 ```
 
+Create `vonwig/pod-atomisthq-tools.docker` which is a manifest list with pod binaries for both `amd64` and `arm64`.  This image is a good way to pull the pod binaries into skill containers.
+
+```bash
+bb build-pod-image
+```
+
 ## Contributing
 
 You can find information about contributing to this project in the CONTRIBUTING.md

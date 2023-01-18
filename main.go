@@ -24,6 +24,7 @@ func main() {
 			babashka.WriteDescribeResponse(describeres)
 			continue
 		}
+		// TODO don't write done responses when callback is running
 		babashka.WriteInvokeResponse(message, res)
 	}
 }

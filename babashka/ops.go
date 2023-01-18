@@ -71,6 +71,20 @@ func WriteInvokeResponse(inputMessage *Message, value any) error {
 	return nil
 }
 
+func WriteNotDoneInvokeResponse(inputMessage *Message, value any) error {
+       if value == nil {
+		return nil
+	}
+	resultValue, err := json.Marshal(value)
+	if err != nil {
+		return err
+	}
+	response := InvokeResponse{Id: inputMessage.Id, Status: []string{}, Value: string(resultValue)}
+	writeResponse(response)
+
+	return nil
+}
+
 func WriteErrorResponse(inputMessage *Message, err error) {
 	errorResponse := ErrorResponse{Id: inputMessage.Id, Status: []string{"done", "error"}, ExMessage: err.Error()}
 	writeResponse(errorResponse)

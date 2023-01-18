@@ -1,3 +1,6 @@
 {:sources ["dev"]
  :deps {babashka/babashka.pods {:mvn/version "0.1.0"}
-        com.cognitect/transit-clj {:mvn/version "1.0.324"}}}
+        babashka/process {:mvn/version "0.4.13"}
+        com.cognitect/transit-clj {:mvn/version "1.0.324"}}
+ :aliases {:main {:extra-paths ["main"]
+                  :exec-fn user1/transact-hashes}}}

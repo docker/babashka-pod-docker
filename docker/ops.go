@@ -2,6 +2,7 @@ package docker
 
 import (
 	"github.com/docker/distribution/reference"
+	"github.com/docker/index-cli-plugin/sbom"
 	"github.com/moby/buildkit/frontend/dockerfile/parser"
 
 	//"reflect"
@@ -34,7 +35,7 @@ func parse_uri(s string) (Reference, error) {
 
 	ref, err := reference.Parse(s)
 	if err != nil {
-		return Reference{},err;
+		return Reference{}, err
 	}
 	//fmt.Printf("%s\n", reflect.TypeOf(ref));
 
@@ -49,9 +50,52 @@ func parse_uri(s string) (Reference, error) {
 		digest = digested.Digest().String()
 	}
 	//u, err := json.Marshal(Reference{Path: path, Domain: domain, Tag: tag, Digest: digest})
-	return Reference{Path: path, Domain: domain, Tag: tag, Digest: digest}, err;
+	return Reference{Path: path, Domain: domain, Tag: tag, Digest: digest}, err
 }
 
+func generate_sbom(message *babashka.Message, s string) error {
+	tx_channel := make(chan string)
+
+	go func() error {
+		for {
+			tx := <-tx_channel
+			if tx != "" {
+				err := babashka.WriteNotDoneInvokeResponse(message, tx)
+				if err != nil {
+					babashka.WriteErrorResponse(message, err)
+				}
+
+			} else {
+				break
+			}
+		}
+		return nil
+	}()
+
+	return sbom.Send(s, tx_channel)
+}
+
+func generate_hashes(message *babashka.Message, s string) error {
+	tx_channel := make(chan string)
+
+	go func() error {
+		for {
+			tx := <-tx_channel
+			if tx != "" {
+				err := babashka.WriteNotDoneInvokeResponse(message, tx)
+				if err != nil {
+					babashka.WriteErrorResponse(message, err)
+				}
+
+			} else {
+				break
+			}
+		}
+		return nil
+	}()
+
+	return sbom.SendFileHashes(s, tx_channel)
+}
 
 func ProcessMessage(message *babashka.Message) (any, error) {
 	switch message.Op {
@@ -67,6 +111,42 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 						},
 						{
 							Name: "parse-dockerfile",
+						},
+						{
+							Name: "sbom",
+							Code: `
+(defn sbom
+  ([image cb]
+   (sbom image cb {}))
+  ([image cb opts]
+   (babashka.pods/invoke
+     "pod.atomisthq.docker"
+     'pod.atomisthq.docker/-generate-sbom
+     [image]
+     {:handlers {:success (fn [event]
+                            (cb event))
+                 :error   (fn [{:keys [:ex-message :ex-data]}]
+                            (binding [*out* *err*]
+                              (println "ERROR:" ex-message)))
+		 :done    (fn [] (println "Done callback"))}})))`,
+						},
+						{
+							Name: "hashes",
+							Code: `
+(defn hashes
+  ([image cb]
+   (hashes image cb {}))
+  ([image cb opts]
+   (babashka.pods/invoke
+     "pod.atomisthq.docker"
+     'pod.atomisthq.docker/-generate-hashes
+     [image]
+     {:handlers {:success (fn [event]
+                            (cb event))
+                 :error   (fn [{:keys [:ex-message :ex-data]}]
+                            (binding [*out* *err*]
+                              (println "ERROR:" ex-message)))
+			      :done    (fn [] (cb {:status "done"}))}})))`,
 						},
 					},
 				},
@@ -86,8 +166,33 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
 			}
-                        reader := strings.NewReader(args[0])
+			reader := strings.NewReader(args[0])
 			return parser.Parse(reader)
+		case "pod.atomisthq.docker/-generate-sbom":
+			args := []string{}
+			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
+				return nil, err
+			}
+
+			err := generate_sbom(message, args[0])
+			if err != nil {
+				babashka.WriteErrorResponse(message, err)
+			}
+
+			return "done", nil
+
+		case "pod.atomisthq.docker/-generate-hashes":
+			args := []string{}
+			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
+				return nil, err
+			}
+
+			err := generate_hashes(message, args[0])
+			if err != nil {
+				babashka.WriteErrorResponse(message, err)
+			}
+
+			return "done", nil
 
 		default:
 			return nil, fmt.Errorf("Unknown var %s", message.Var)
