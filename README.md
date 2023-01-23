@@ -47,6 +47,48 @@ Create `vonwig/pod-atomisthq-tools.docker` which is a manifest list with pod bin
 bb build-pod-image
 ```
 
+## Namespace generation
+
+The `pods/load-pod` call is convenient for a repl-session, or a script, but what if you are `aot` compiling, or building a native binary.  In the example above, the namespaces emitted by `pods/load-pod` are not available until runtime.
+
+Here is an example of bindings that will resolve at compile-time and go through the same dispatch.
+
+```
+; require the babashka.pods in a namespace
+(require '[babashka.pods.impl :as impl])
+
+; call at runtime to initialize pod system
+(defn load-pod
+  ([pod-spec] (load-pod pod-spec nil))
+  ([pod-spec version opts] (load-pod pod-spec (assoc opts :version version)))
+  ([pod-spec opts]
+   (let [opts (if (string? opts)
+                {:version opts}
+                opts)
+         pod (impl/load-pod
+              pod-spec
+              (merge {:remove-ns remove-ns
+                      :resolve (fn [sym]
+                                 (or (resolve sym)
+                                     (intern
+                                      (create-ns (symbol (namespace sym)))
+                                      (symbol (name sym)))))}
+                     opts))]
+     (future (impl/processor pod))
+     {:pod/id (:pod-id pod)})))
+
+;; statically define dispatch functions
+(defn parse [s]
+  (impl/invoke-public "pod.atomisthq.docker" "pod.atomisthq.docker/parse-dockerfile" [s] {}))
+```
+
+```
+(pods/load-pod 'atomisthq/tools.docker "7.3.0")
+(pods/load-pod "my-executable")
+```
+
+This method of dispatch does not require any dynamic namespace generation.
+
 ## Contributing
 
 You can find information about contributing to this project in the CONTRIBUTING.md
