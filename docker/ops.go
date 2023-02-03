@@ -2,7 +2,7 @@ package docker
 
 import (
 	"github.com/docker/distribution/reference"
-	"github.com/docker/index-cli-plugin/sbom"
+	"github.com/docker/index-cli-plugin/lsp"
 	"github.com/moby/buildkit/frontend/dockerfile/parser"
 
 	//"reflect"
@@ -53,7 +53,7 @@ func parse_uri(s string) (Reference, error) {
 	return Reference{Path: path, Domain: domain, Tag: tag, Digest: digest}, err
 }
 
-func generate_sbom(message *babashka.Message, s string) error {
+func generate_sbom(message *babashka.Message, image string, username string, password string) error {
 	tx_channel := make(chan string)
 
 	go func() error {
@@ -72,7 +72,13 @@ func generate_sbom(message *babashka.Message, s string) error {
 		return nil
 	}()
 
-	return sbom.Send(s, tx_channel)
+	l := lsp.New()
+
+	if username != "" && password != "" {
+		l.WithAuth(username, password)
+	}
+
+	return l.Send(image, tx_channel)
 }
 
 func generate_hashes(message *babashka.Message, s string) error {
@@ -94,7 +100,7 @@ func generate_hashes(message *babashka.Message, s string) error {
 		return nil
 	}()
 
-	return sbom.SendFileHashes(s, tx_channel)
+	return lsp.New().SendFileHashes(s, tx_channel)
 }
 
 func ProcessMessage(message *babashka.Message) (any, error) {
@@ -173,8 +179,8 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
 			}
-
-			err := generate_sbom(message, args[0])
+			// TODO add username and password to inbound message
+			err := generate_sbom(message, args[0], "", "")
 			if err != nil {
 				babashka.WriteErrorResponse(message, err)
 			}
