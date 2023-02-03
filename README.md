@@ -53,7 +53,7 @@ The `pods/load-pod` call is convenient for a repl-session, or a script, but what
 
 Here is an example of bindings that will resolve at compile-time and go through the same dispatch.
 
-```
+```clj
 ; require the babashka.pods in a namespace
 (require '[babashka.pods.impl :as impl])
 
@@ -77,9 +77,17 @@ Here is an example of bindings that will resolve at compile-time and go through 
      (future (impl/processor pod))
      {:pod/id (:pod-id pod)})))
 
-;; statically define dispatch functions
+;; statically define dispatch functions - this is synchronous
 (defn parse [s]
   (impl/invoke-public "pod.atomisthq.docker" "pod.atomisthq.docker/parse-dockerfile" [s] {}))
+
+;; async example
+(defn generate-sbom [s]
+  (impl/invoke-public "pod.atomisthq.docker" "pod.atomisthq.docker/-generate-sbom" 
+    [s cb] 
+    {:handlers {:done (fn [])
+                :success cb
+                :error (fn [err]}})))
 ```
 
 ```
