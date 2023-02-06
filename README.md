@@ -1,6 +1,6 @@
 ## Background
 
-This is a [babashka pod](https://github.com/babashka/pods) that binds some golang functions into a clojure namespace.  Using this pod, clojure programs can parse dockerfiles and docker images names using the "official" docker golang libraries.  
+This is a [babashka pod](https://github.com/babashka/pods) that binds some golang functions into a clojure namespace.  Using this pod, clojure programs can parse dockerfiles and docker images names using the "official" docker golang libraries.
 
 * [`github.com/docker/distribution/reference`](https://github.com/distribution/distribution/blob/main/reference/reference.go) (for image name parsing)
 * [`github.com/moby/buildkit/frontend/dockerfile/parser`](https://github.com/moby/buildkit/blob/master/frontend/dockerfile/parser/parser.go) (for generating a Dockerfile AST).
@@ -16,13 +16,13 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 ;; load-pod will create this namespace with two vars
 (require '[pod.atomisthq.docker :as docker])
 
-;; parse image names using github.com/docker/distribution 
+;; parse image names using github.com/docker/distribution
 ;; turns golang structs into clojure maps
-(docker/parse-image-name "gcr.io/whatever:tag") 
+(docker/parse-image-name "gcr.io/whatever:tag")
 ;; automatically turns golang errors into Exceptions
 (try
   (docker/parse-image-name "gcr.io/whatever/:tag")
-  (catch Exception e 
+  (catch Exception e
     ;; invalid reference format
     (println (.getMessage e))))
 
@@ -46,6 +46,10 @@ Create `vonwig/pod-atomisthq-tools.docker` which is a manifest list with pod bin
 ```bash
 bb build-pod-image
 ```
+
+## Releasing
+
+Pushing a tag (like v0.1.1) will cause a GitHub release to be created
 
 ## Namespace generation
 
@@ -83,8 +87,8 @@ Here is an example of bindings that will resolve at compile-time and go through 
 
 ;; async example
 (defn generate-sbom [s]
-  (impl/invoke-public "pod.atomisthq.docker" "pod.atomisthq.docker/-generate-sbom" 
-    [s cb] 
+  (impl/invoke-public "pod.atomisthq.docker" "pod.atomisthq.docker/-generate-sbom"
+    [s cb]
     {:handlers {:done (fn [])
                 :success cb
                 :error (fn [err]}})))

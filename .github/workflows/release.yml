@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   releases-matrix:
@@ -26,6 +26,6 @@ jobs:
         goarch: ${{ matrix.goarch }}
         goversion: 1.19.1
         binary_name: "pod-atomisthq-tools.docker"
-        release_tag: v0.${{ github.run_number }}.${{ github.run_attempt }}
+        release_tag: ${{github.ref_name}}
         overwrite: TRUE
         compress_assets: OFF
