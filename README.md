@@ -49,7 +49,7 @@ bb build-pod-image
 
 ## Releasing
 
-Pushing a tag (like v0.1.1) will cause a GitHub release to be created
+Creating a release from a tag will trigger a build and release
 
 ## Namespace generation
 
