@@ -176,15 +176,21 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			return parser.Parse(reader)
 		case "pod.atomisthq.docker/-generate-sbom":
 			args := []string{}
+
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
 			}
-			// TODO add username and password to inbound message
-			err := generate_sbom(message, args[0], "", "")
-			if err != nil {
-				babashka.WriteErrorResponse(message, err)
+			if len(args) == 3 {
+				err := generate_sbom(message, args[0], args[1], args[2])
+				if err != nil {
+					babashka.WriteErrorResponse(message, err)
+				}
+			} else {
+				err := generate_sbom(message, args[0], "", "")
+				if err != nil {
+					babashka.WriteErrorResponse(message, err)
+				}
 			}
-
 			return "done", nil
 
 		case "pod.atomisthq.docker/-generate-hashes":
