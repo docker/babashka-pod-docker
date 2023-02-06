@@ -26,7 +26,6 @@ jobs:
         goarch: ${{ matrix.goarch }}
         goversion: 1.19.1
         binary_name: "pod-atomisthq-tools.docker"
-        release_tag: "v0.1.0"
+        release_tag: v0.${{ github.run_number }}.${{ github.run_attempt }}
         overwrite: TRUE
         compress_assets: OFF
-
