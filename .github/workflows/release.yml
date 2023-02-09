@@ -1,8 +1,9 @@
 name: Release
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
 
 jobs:
   releases-matrix:
@@ -24,7 +25,7 @@ jobs:
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         goversion: 1.19.1
-        binary_name: "pod-atomisthq-tools.docker"
-        release_tag: ${{github.ref_name}}
+        binary_name: "babashka-pod-docker"
+        release_tag: "0.1.0"
         overwrite: TRUE
         compress_assets: OFF

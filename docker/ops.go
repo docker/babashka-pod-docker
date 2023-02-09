@@ -110,7 +110,7 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			Format: "json",
 			Namespaces: []babashka.Namespace{
 				{
-					Name: "pod.atomisthq.docker",
+					Name: "docker.babashka-pod-docker",
 					Vars: []babashka.Var{
 						{
 							Name: "parse-image-name",
@@ -126,8 +126,8 @@ func ProcessMessage(message *babashka.Message) (any, error) {
    (sbom image cb {}))
   ([image cb opts]
    (babashka.pods/invoke
-     "pod.atomisthq.docker"
-     'pod.atomisthq.docker/-generate-sbom
+     "docker.babashka-pod-docker"
+     'babashka-pod-docker/generate-sbom
      [image]
      {:handlers {:success (fn [event]
                             (cb event))
@@ -144,8 +144,8 @@ func ProcessMessage(message *babashka.Message) (any, error) {
    (hashes image cb {}))
   ([image cb opts]
    (babashka.pods/invoke
-     "pod.atomisthq.docker"
-     'pod.atomisthq.docker/-generate-hashes
+     "docker.babashka-pod-docker"
+     'babashka-pod-docker/generate-hashes
      [image]
      {:handlers {:success (fn [event]
                             (cb event))
@@ -160,21 +160,21 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 		}, nil
 	case "invoke":
 		switch message.Var {
-		case "pod.atomisthq.docker/parse-image-name":
+		case "babashka-pod-docker/parse-image-name":
 			args := []string{}
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
 			}
 
 			return parse_uri(args[0])
-		case "pod.atomisthq.docker/parse-dockerfile":
+		case "babashka-pod-docker/parse-dockerfile":
 			args := []string{}
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
 			}
 			reader := strings.NewReader(args[0])
 			return parser.Parse(reader)
-		case "pod.atomisthq.docker/-generate-sbom":
+		case "babashka-pod-docker/generate-sbom":
 			args := []string{}
 
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
@@ -193,7 +193,7 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			}
 			return "done", nil
 
-		case "pod.atomisthq.docker/-generate-hashes":
+		case "babashka-pod-docker/generate-hashes":
 			args := []string{}
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err

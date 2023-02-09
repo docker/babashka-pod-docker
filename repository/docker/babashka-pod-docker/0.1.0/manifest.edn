@@ -1,0 +1,23 @@
+{:pod/name docker/babashka-pod-docker
+ :pod/description "docker golang utils for clojure"
+ :pod/version "0.1.0"
+ :pod/license "Apache"
+ :pod/example "https://raw.githubusercontent.com/docker/babashka-pod-docker/main/dev/user.clj"
+ :pod/language "go"
+ :pod/artifacts
+ [{:os/name "Linux.*"
+   :os/arch "amd64"
+   :artifact/url "https://github.com/docker/babashka-pod-docker/releases/download/v0.1.0/babashka-pod-docker-0.1.0-linux-amd64.zip"
+   :artifact/executable "go.sh"}
+  {:os/name "Mac.*"
+   :os/arch "x86_64"
+   :artifact/url "https://github.com/docker/babashka-pod-docker/releases/download/v0.1.0/babashka-pod-docker-0.1.0-macos-x86_64.zip"
+   :artifact/executable "go.sh"}
+  {:os/name "Mac.*"
+   :os/arch "aarch64"
+   :artifact/url "https://github.com/docker/babashka-pod-docker/releases/download/v0.1.0/babashka-pod-docker-0.1.0-macos-arm64.zip"
+   :artifact/executable "go.sh"}
+  {:os/name "Linux.*"
+   :os/arch "aarch64"
+   :artifact/url "https://github.com/docker/babashka-pod-docker/releases/download/v0.1.0/babashka-pod-docker-0.1.0-linux-arm64.zip"
+   :artifact/executable "go.sh"}]}

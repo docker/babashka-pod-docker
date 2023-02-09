@@ -1,12 +1,7 @@
+babashka-pod-docker
+.calva/
 /parser
 /.clj-kondo/
 /.cpcache/
 /.lsp/
-/pod-babashka-docker
-/pod-babashka-docker-0.1.0-macos-aarch64.zip
-/pod-atomisthq-docker
-/pod-atomisthq-docker-0.1.0-macos-aarch64.zip
 /.nrepl-port
-/pod-atomisthq-tools.docker
-/pod-atomisthq-tools.docker-0.1.0-macos-aarch64.zip
-/pod-atomisthq-tools.docker-0.1.0-macos-arm64.zip

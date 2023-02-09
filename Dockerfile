@@ -11,10 +11,10 @@ COPY main.go ./
 COPY docker/ ./docker/
 COPY babashka/ ./babashka/
 
-RUN CGO_ENABLED=0 go build -o pod-atomisthq-tools.docker
+RUN CGO_ENABLED=0 go build -o babashka-pod-docker
 
 FROM alpine:3.17
-
+ARG version
 COPY repository/ /root/.babashka/pods/repository
-COPY --from=build /app/pod-atomisthq-tools.docker /root/.babashka/pods/repository/atomisthq/tools.docker/0.1.0
-RUN chmod 755 /root/.babashka/pods/repository/atomisthq/tools.docker/0.1.0/pod-atomisthq-tools.docker
+COPY --from=build /app/babashka-pod-docker /root/.babashka/pods/repository/docker/babashka-pod-docker/0.1.0
+RUN chmod 755 /root/.babashka/pods/repository/docker/babashka-pod-docker/0.1.0/babashka-pod-docker

@@ -9,12 +9,12 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 
 ```clojure
 (require '[babashka.pods :as pods])
-(pods/load-pod 'atomisthq/tools.docker "0.1.0")
+(pods/load-pod 'docker/babashka-pod-docker "0.1.0")
 ; OR use a locally built pod binary
-#_(pods/load-pod "./pod-atomisthq-tools.docker")
+#_(pods/load-pod "./babashka-pod-docker")
 
 ;; load-pod will create this namespace with two vars
-(require '[pod.atomisthq.docker :as docker])
+(require '[docker.babashka-pod-docker :as docker])
 
 ;; parse image names using github.com/docker/distribution
 ;; turns golang structs into clojure maps
@@ -31,25 +31,21 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 (docker/parse-dockerfile "FROM \\\n    gcr.io/whatever:tag\nCMD [\"run\"]")
 ```
 
-Loading `'atomisthq/docker` from the pod registry will download the binary into `${user.home}/.babashka/pods/registry` (the `$BABASHKA_PODS_DIR` environment variable will be used if it exists).
+Loading `'docker/babashka-pod-docker` from the pod registry will download the binary into `${user.home}/.babashka/pods/registry` (the `$BABASHKA_PODS_DIR` environment variable will be used if it exists).
 
-## Building
+## Building Locally
 
 To build the golang `parser` binary locally, run `go build`.
 
 ```bash
-go build -o pod-babashka-docker
-```
-
-Create `vonwig/pod-atomisthq-tools.docker` which is a manifest list with pod binaries for both `amd64` and `arm64`.  This image is a good way to pull the pod binaries into skill containers.
-
-```bash
-bb build-pod-image
+go build -o babashka-pod-docker
 ```
 
 ## Releasing
 
-Creating a release from a tag will trigger a build and release
+All pushes to main will update the 0.1.0 release. This is becaus maintaining the pod version in the repository directory and in the pod registry is tricky.
+
+We hope to automate all of that in the future.
 
 ## Namespace generation
 
@@ -83,11 +79,11 @@ Here is an example of bindings that will resolve at compile-time and go through 
 
 ;; statically define dispatch functions - this is synchronous
 (defn parse [s]
-  (impl/invoke-public "pod.atomisthq.docker" "pod.atomisthq.docker/parse-dockerfile" [s] {}))
+  (impl/invoke-public "babashka-pod-docker" "babashka-pod-docker/parse-dockerfile" [s] {}))
 
 ;; async example
 (defn generate-sbom [s]
-  (impl/invoke-public "pod.atomisthq.docker" "pod.atomisthq.docker/-generate-sbom"
+  (impl/invoke-public "babashka-pod-docker" "babashka-pod-docker/-generate-sbom"
     [s cb]
     {:handlers {:done (fn [])
                 :success cb
@@ -95,8 +91,7 @@ Here is an example of bindings that will resolve at compile-time and go through 
 ```
 
 ```
-(pods/load-pod 'atomisthq/tools.docker "7.3.0")
-(pods/load-pod "my-executable")
+(pods/load-pod "/bin/babashka-pod-docker")
 ```
 
 This method of dispatch does not require any dynamic namespace generation.
