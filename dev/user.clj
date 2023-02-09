@@ -66,8 +66,8 @@
   (println (load-pod "./babashka-pod-docker"))
   (impl/invoke-public
    "docker.babashka-pod-docker"
-   "babashka-pod-docker/parse-image-name"
-   ["ubuntu:latest"]
+   "babashka-pod-docker/generate-sbom"
+   ["ubuntu:latest" "" ""]
    {})
   (generate-sbom "alpine")
   )

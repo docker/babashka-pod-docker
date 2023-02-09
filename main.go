@@ -3,9 +3,13 @@ package main
 import (
 	"dockerfileparse/user/parser/babashka"
 	"dockerfileparse/user/parser/docker"
+
+	"github.com/atomist-skills/go-skill"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {
+	skill.Log.SetLevel(logrus.ErrorLevel)
 	for {
 		message, err := babashka.ReadMessage()
 		if err != nil {
@@ -28,4 +32,3 @@ func main() {
 		babashka.WriteInvokeResponse(message, res)
 	}
 }
-
