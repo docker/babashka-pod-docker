@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/docker/distribution v2.8.1+incompatible
-	github.com/docker/index-cli-plugin v0.0.33-0.20230203084141-88bf36ae38c6
+	github.com/docker/index-cli-plugin v0.0.33-0.20230203131411-00c585229011
 	github.com/jackpal/bencode-go v1.0.0
 	github.com/moby/buildkit v0.10.6
 )
