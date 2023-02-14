@@ -474,6 +474,8 @@ github.com/docker/index-cli-plugin v0.0.33-0.20230203084141-88bf36ae38c6 h1:L4nc
 github.com/docker/index-cli-plugin v0.0.33-0.20230203084141-88bf36ae38c6/go.mod h1:8lunxSyNMPeJRCF6aQB7JlhUXzEAB9X9XpzdCVP+WfA=
 github.com/docker/index-cli-plugin v0.0.33-0.20230203131411-00c585229011 h1:8Z9o2ORcigv7p+sZahS5xBjppe/fqSRdYBd+PAc/KOY=
 github.com/docker/index-cli-plugin v0.0.33-0.20230203131411-00c585229011/go.mod h1:sdYyI6MH4WajfPjdd8WztrHC0v7lHqYZWxT0uDoz3AA=
+github.com/docker/index-cli-plugin v0.0.34-0.20230213201827-11b2a8c1eaa7 h1:rVqhg6loz0j6QoXLEuUcBBjTUHmx7DCivZyaOBbSOEw=
+github.com/docker/index-cli-plugin v0.0.34-0.20230213201827-11b2a8c1eaa7/go.mod h1:E+TVIQ/+kVImbWGs0RnI4NWKYMKgzTG0RM+WrWWCFP4=
 github.com/docker/libtrust v0.0.0-20150114040149-fa567046d9b1/go.mod h1:cyGadeNEkKy96OOhEzfZl+yxihPEzKnqJwvfuSUqbZE=
 github.com/docker/libtrust v0.0.0-20160708172513-aabc10ec26b7/go.mod h1:cyGadeNEkKy96OOhEzfZl+yxihPEzKnqJwvfuSUqbZE=
 github.com/docker/spdystream v0.0.0-20160310174837-449fdfce4d96/go.mod h1:Qh8CwZgvJUkLughtfhJv5dyTYa91l1fOUCrgjqmcifM=
