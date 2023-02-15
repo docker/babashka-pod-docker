@@ -3,10 +3,12 @@ module dockerfileparse/user/parser
 go 1.19
 
 require (
+	github.com/atomist-skills/go-skill v0.0.6-0.20221221214636-a7de163fd901
 	github.com/docker/distribution v2.8.1+incompatible
 	github.com/docker/index-cli-plugin v0.0.34-0.20230213201827-11b2a8c1eaa7
 	github.com/jackpal/bencode-go v1.0.0
-	github.com/moby/buildkit v0.10.6
+	github.com/moby/buildkit v0.11.3
+	github.com/sirupsen/logrus v1.9.0
 )
 
 require (
@@ -28,7 +30,7 @@ require (
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.2 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
-	github.com/Microsoft/hcsshim v0.9.5 // indirect
+	github.com/Microsoft/hcsshim v0.9.6 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20220824120805-4b6e5c587895 // indirect
 	github.com/acobaugh/osrelease v0.1.0 // indirect
 	github.com/acomagu/bufpipe v1.0.3 // indirect
@@ -41,7 +43,6 @@ require (
 	github.com/aquasecurity/go-dep-parser v0.0.0-20220626060741-179d0b167e5f // indirect
 	github.com/aquasecurity/trivy v0.30.4 // indirect
 	github.com/aquasecurity/trivy-db v0.0.0-20220627104749-930461748b63 // indirect
-	github.com/atomist-skills/go-skill v0.0.6-0.20221221214636-a7de163fd901 // indirect
 	github.com/aws/aws-sdk-go v1.44.46 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.0.2 // indirect
@@ -49,19 +50,19 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/cloudflare/circl v1.1.0 // indirect
 	github.com/containerd/cgroups v1.0.4 // indirect
-	github.com/containerd/containerd v1.6.12 // indirect
+	github.com/containerd/containerd v1.6.16 // indirect
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/containerd/fifo v1.0.0 // indirect
-	github.com/containerd/stargz-snapshotter/estargz v0.12.0 // indirect
+	github.com/containerd/stargz-snapshotter/estargz v0.13.0 // indirect
 	github.com/containerd/ttrpc v1.1.1-0.20220420014843-944ef4a40df3 // indirect
 	github.com/containerd/typeurl v1.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-minhash v0.0.0-20170608043002-7fe510aff544 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
-	github.com/docker/cli v20.10.21+incompatible // indirect
-	github.com/docker/docker v20.10.17+incompatible // indirect
-	github.com/docker/docker-credential-helpers v0.6.4 // indirect
+	github.com/docker/cli v23.0.0-rc.1+incompatible // indirect
+	github.com/docker/docker v23.0.0-rc.1+incompatible // indirect
+	github.com/docker/docker-credential-helpers v0.7.0 // indirect
 	github.com/docker/go v1.5.1-1.0.20160303222718-d30aec9fd63c // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-events v0.0.0-20190806004212-e31b211e4f1c // indirect
@@ -126,8 +127,8 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/moby/locker v1.0.1 // indirect
-	github.com/moby/sys/mount v0.3.3 // indirect
 	github.com/moby/sys/mountinfo v0.6.2 // indirect
+	github.com/moby/sys/sequential v0.5.0 // indirect
 	github.com/moby/sys/signal v0.7.0 // indirect
 	github.com/moby/term v0.0.0-20220808134915-39b0c02b01ae // indirect
 	github.com/montanaflynn/stats v0.0.0-20151014174947-eeaced052adb // indirect
@@ -138,13 +139,13 @@ require (
 	github.com/opencontainers/image-spec v1.0.3-0.20220303224323-02efb9a75ee1 // indirect
 	github.com/opencontainers/runc v1.1.3 // indirect
 	github.com/opencontainers/runtime-spec v1.0.3-0.20220311020903-6969a0a09ab1 // indirect
-	github.com/opencontainers/selinux v1.10.1 // indirect
+	github.com/opencontainers/selinux v1.10.2 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pierrec/lz4/v4 v4.1.15 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/prometheus/client_golang v1.13.0 // indirect
-	github.com/prometheus/client_model v0.2.0 // indirect
+	github.com/prometheus/client_golang v1.14.0 // indirect
+	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0 // indirect
@@ -157,8 +158,7 @@ require (
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/shogo82148/go-shuffle v0.0.0-20170808115208-59829097ff3b // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
-	github.com/sirupsen/logrus v1.9.0 // indirect
-	github.com/spdx/tools-golang v0.3.1-0.20221108182156-8a01147e6342 // indirect
+	github.com/spdx/tools-golang v0.3.1-0.20230104082527-d6f58551be3f // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/cobra v1.6.0 // indirect
@@ -176,7 +176,6 @@ require (
 	github.com/wagoodman/go-partybus v0.0.0-20210627031916-db1f5573bbc5 // indirect
 	github.com/wagoodman/go-progress v0.0.0-20200731105512-1020f39e6240 // indirect
 	github.com/xanzy/ssh-agent v0.3.0 // indirect
-	github.com/xeonx/timeago v1.0.0-rc5 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
 	github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
@@ -184,15 +183,15 @@ require (
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
-	golang.org/x/crypto v0.0.0-20220926161630-eccd6366d1be // indirect
+	golang.org/x/crypto v0.2.0 // indirect
 	golang.org/x/exp v0.0.0-20220823124025-807a23277127 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
-	golang.org/x/net v0.0.0-20221012135044-0b7e1fb9d458 // indirect
+	golang.org/x/net v0.4.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20221006150949-b44042a4b9c1 // indirect
-	golang.org/x/sync v0.0.0-20220929204114-8fcdb60fdcc0 // indirect
-	golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec // indirect
-	golang.org/x/term v0.0.0-20220919170432-7a66f970e087 // indirect
-	golang.org/x/text v0.3.8-0.20211004125949-5bd84dd9b33b // indirect
+	golang.org/x/sync v0.1.0 // indirect
+	golang.org/x/sys v0.3.0 // indirect
+	golang.org/x/term v0.3.0 // indirect
+	golang.org/x/text v0.5.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	gonum.org/v1/gonum v0.7.0 // indirect
