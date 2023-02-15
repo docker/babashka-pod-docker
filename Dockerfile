@@ -11,7 +11,7 @@ COPY main.go ./
 COPY docker/ ./docker/
 COPY babashka/ ./babashka/
 
-RUN CGO_ENABLED=0 go build -o babashka-pod-docker
+RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o babashka-pod-docker
 
 FROM alpine:3.17
 ARG version
