@@ -7,7 +7,7 @@ require (
 	github.com/docker/distribution v2.8.1+incompatible
 	github.com/docker/index-cli-plugin v0.0.34-0.20230213201827-11b2a8c1eaa7
 	github.com/jackpal/bencode-go v1.0.0
-	github.com/moby/buildkit v0.11.3
+	github.com/moby/buildkit v0.11.4
 	github.com/sirupsen/logrus v1.9.0
 )
 
