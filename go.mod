@@ -7,7 +7,7 @@ require (
 	github.com/docker/distribution v2.8.1+incompatible
 	github.com/docker/index-cli-plugin v0.0.34-0.20230213201827-11b2a8c1eaa7
 	github.com/jackpal/bencode-go v1.0.0
-	github.com/moby/buildkit v0.11.3
+	github.com/moby/buildkit v0.11.4
 	github.com/sirupsen/logrus v1.9.0
 )
 
@@ -50,7 +50,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/cloudflare/circl v1.1.0 // indirect
 	github.com/containerd/cgroups v1.0.4 // indirect
-	github.com/containerd/containerd v1.6.16 // indirect
+	github.com/containerd/containerd v1.6.18 // indirect
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/containerd/fifo v1.0.0 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.13.0 // indirect
