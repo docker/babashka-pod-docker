@@ -23,9 +23,9 @@
      {:pod/id (:pod-id pod)})))
 
 (comment
-  (pods/load-pod 'docker/babashka-pod-docker "0.1.0")
+  (pods/load-pod 'docker.docker-tools "0.1.0")
 
-  (require '[babashka-pod-docker :as docker])
+  (require '[docker.babashka-pod-docker :as docker])
 
 
 ;; parse image names using github.com/docker/distribution
@@ -55,8 +55,8 @@
 (defn generate-sbom
   [image]
   (impl/invoke-public
-   "docker.babashka-pod-docker"
-   "babashka-pod-docker/generate-sbom"
+   "docker.docker-tools"
+   "docker.babashka-pod-docker/generate-sbom"
    [image "" ""]
    {:handlers {:done (fn [] (println "Done"))
                :success (fn [msg] (println "msg: " msg))
@@ -65,8 +65,8 @@
 (comment
   (println (load-pod "./babashka-pod-docker"))
   (impl/invoke-public
-   "docker.babashka-pod-docker"
-   "babashka-pod-docker/generate-sbom"
+   "docker.docker-tools"
+   "docker.babashka-pod-docker/generate-sbom"
    ["ubuntu:latest" "" ""]
    {})
   (generate-sbom "alpine")

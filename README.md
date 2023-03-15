@@ -9,7 +9,7 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 
 ```clojure
 (require '[babashka.pods :as pods])
-(pods/load-pod 'docker/babashka-pod-docker "0.1.0")
+(pods/load-pod 'docker/docker-tools "0.1.0")
 ; OR use a locally built pod binary
 #_(pods/load-pod "./babashka-pod-docker")
 
@@ -31,7 +31,7 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 (docker/parse-dockerfile "FROM \\\n    gcr.io/whatever:tag\nCMD [\"run\"]")
 ```
 
-Loading `'docker/babashka-pod-docker` from the pod registry will download the binary into `${user.home}/.babashka/pods/registry` (the `$BABASHKA_PODS_DIR` environment variable will be used if it exists).
+Loading `'docker/docker-tools` from the pod registry will download the binary into `${user.home}/.babashka/pods/registry` (the `$BABASHKA_PODS_DIR` environment variable will be used if it exists).
 
 ## Building Locally
 
@@ -79,11 +79,11 @@ Here is an example of bindings that will resolve at compile-time and go through 
 
 ;; statically define dispatch functions - this is synchronous
 (defn parse [s]
-  (impl/invoke-public "babashka-pod-docker" "babashka-pod-docker/parse-dockerfile" [s] {}))
+  (impl/invoke-public "docker.docker-tools" "docker.babashka-pod-docker/parse-dockerfile" [s] {}))
 
 ;; async example
 (defn generate-sbom [s]
-  (impl/invoke-public "babashka-pod-docker" "babashka-pod-docker/-generate-sbom"
+  (impl/invoke-public "docker.docker-tools" "docker.babashka-pod-docker/generate-sbom"
     [s cb]
     {:handlers {:done (fn [])
                 :success cb
