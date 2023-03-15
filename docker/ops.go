@@ -110,7 +110,8 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			Format: "json",
 			Namespaces: []babashka.Namespace{
 				{
-					Name: "docker.babashka-pod-docker",
+					// this is the pod-id
+					Name: "docker.docker-tools",
 					Vars: []babashka.Var{
 						{
 							Name: "parse-image-name",
@@ -126,8 +127,8 @@ func ProcessMessage(message *babashka.Message) (any, error) {
    (sbom image cb {}))
   ([image cb opts]
    (babashka.pods/invoke
-     "docker.babashka-pod-docker"
-     'babashka-pod-docker/generate-sbom
+     "docker.docker-tools"
+     'docker.babashka-pod-docker/generate-sbom
      [image]
      {:handlers {:success (fn [event]
                             (cb event))
@@ -144,8 +145,8 @@ func ProcessMessage(message *babashka.Message) (any, error) {
    (hashes image cb {}))
   ([image cb opts]
    (babashka.pods/invoke
-     "docker.babashka-pod-docker"
-     'babashka-pod-docker/generate-hashes
+     "docker.docker-tools"
+     'docker.babashka-pod-docker/generate-hashes
      [image]
      {:handlers {:success (fn [event]
                             (cb event))
@@ -160,21 +161,21 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 		}, nil
 	case "invoke":
 		switch message.Var {
-		case "babashka-pod-docker/parse-image-name":
+		case "docker.babashka-pod-docker/parse-image-name":
 			args := []string{}
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
 			}
 
 			return parse_uri(args[0])
-		case "babashka-pod-docker/parse-dockerfile":
+		case "docker.babashka-pod-docker/parse-dockerfile":
 			args := []string{}
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
 			}
 			reader := strings.NewReader(args[0])
 			return parser.Parse(reader)
-		case "babashka-pod-docker/generate-sbom":
+		case "docker.babashka-pod-docker/generate-sbom":
 			args := []string{}
 
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
@@ -193,7 +194,7 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			}
 			return "done", nil
 
-		case "babashka-pod-docker/generate-hashes":
+		case "docker.babashka-pod-docker/generate-hashes":
 			args := []string{}
 			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
 				return nil, err
