@@ -5,3 +5,6 @@ babashka-pod-docker
 /.cpcache/
 /.lsp/
 /.nrepl-port
+/vendor/
+/result
+/.direnv/

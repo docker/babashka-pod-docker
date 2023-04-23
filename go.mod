@@ -1,4 +1,4 @@
-module dockerfileparse/user/parser
+module babashka-pod-docker
 
 go 1.19
 
