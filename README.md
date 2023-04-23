@@ -9,12 +9,12 @@ This is a [babashka pod](https://github.com/babashka/pods) that binds some golan
 
 ```clojure
 (require '[babashka.pods :as pods])
-(pods/load-pod 'docker/docker-tools "0.1.0")
+(pods/load-pod 'docker/tools "0.1.0")
 ; OR use a locally built pod binary
 #_(pods/load-pod "./babashka-pod-docker")
 
 ;; load-pod will create this namespace with two vars
-(require '[docker.babashka-pod-docker :as docker])
+(require '[docker.tools :as docker])
 
 ;; parse image names using github.com/docker/distribution
 ;; turns golang structs into clojure maps
@@ -79,11 +79,11 @@ Here is an example of bindings that will resolve at compile-time and go through 
 
 ;; statically define dispatch functions - this is synchronous
 (defn parse [s]
-  (impl/invoke-public "docker.docker-tools" "docker.babashka-pod-docker/parse-dockerfile" [s] {}))
+  (impl/invoke-public "docker.tools" "docker.tools/parse-dockerfile" [s] {}))
 
 ;; async example
 (defn generate-sbom [s]
-  (impl/invoke-public "docker.docker-tools" "docker.babashka-pod-docker/generate-sbom"
+  (impl/invoke-public "docker.tools" "docker.tools/generate-sbom"
     [s cb]
     {:handlers {:done (fn [])
                 :success cb
@@ -99,3 +99,4 @@ This method of dispatch does not require any dynamic namespace generation.
 ## Contributing
 
 You can find information about contributing to this project in the CONTRIBUTING.md
+

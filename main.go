@@ -1,8 +1,8 @@
 package main
 
 import (
-	"dockerfileparse/user/parser/babashka"
-	"dockerfileparse/user/parser/docker"
+	"babashka-pod-docker/babashka"
+	"babashka-pod-docker/docker"
 
 	"github.com/atomist-skills/go-skill"
 	"github.com/sirupsen/logrus"
