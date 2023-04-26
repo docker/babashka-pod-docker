@@ -5,21 +5,33 @@
     nixpkgs.url = "github:NixOS/nixpkgs/release-22.11";
     flake-utils.url = "github:numtide/flake-utils";
     gomod2nix.url = "github:nix-community/gomod2nix";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, gomod2nix }:
+  outputs = { self, nixpkgs, flake-utils, gomod2nix, devshell }:
 
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs
           {
             inherit system;
-            overlays = [ gomod2nix.overlays.default ];
+            overlays = [ gomod2nix.overlays.default devshell.overlays.default ];
           };
       in
       {
-        devShells.default = pkgs.mkShell {
+        devShells.default = pkgs.devshell.mkShell {
           packages = with pkgs; [ go gotools golangci-lint gopls gopkgs go-outline gomod2nix.packages.${system}.default ];
+          commands = [
+            {
+              name = "update-gomod2nix";
+              help = "update gomod2nix.toml";
+              command = "gomod2nix";
+            }
+	  ];
         };
         packages = rec {
           default = pkgs.buildGoApplication {
