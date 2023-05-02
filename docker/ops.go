@@ -58,13 +58,12 @@ func generate_sbom(message *babashka.Message, image string, username string, pas
 
 	go func() error {
 		for {
-			tx := <-tx_channel
-			if tx != "" {
+			tx, ok := <-tx_channel
+			if (ok && tx != "") {
 				err := babashka.WriteNotDoneInvokeResponse(message, tx)
 				if err != nil {
 					babashka.WriteErrorResponse(message, err)
 				}
-
 			} else {
 				break
 			}
