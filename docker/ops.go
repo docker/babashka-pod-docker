@@ -69,6 +69,7 @@ func generate_sbom(message *babashka.Message, image string, username string, pas
 				break
 			}
 		}
+		babashka.WriteInvokeResponse(message, "done");
 		return nil
 	}()
 
@@ -192,7 +193,7 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 					babashka.WriteErrorResponse(message, err)
 				}
 			}
-			return "done", nil
+			return "running", nil
 
 		case "docker.tools/generate-hashes":
 			args := []string{}
