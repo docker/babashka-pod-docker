@@ -65,6 +65,7 @@ func generate_sbom(message *babashka.Message, image string, username string, pas
 					babashka.WriteErrorResponse(message, err)
 				}
 			} else {
+				tx_channel = nil
 				break
 			}
 		}
@@ -135,7 +136,7 @@ func ProcessMessage(message *babashka.Message) (any, error) {
                  :error   (fn [{:keys [:ex-message :ex-data]}]
                             (binding [*out* *err*]
                               (println "ERROR:" ex-message)))
-		 :done    (fn [] (println "Done callback"))}})))`,
+		 :done    (fn [] (cb "done"))}})))`,
 						},
 						{
 							Name: "hashes",

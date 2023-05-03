@@ -24,14 +24,14 @@
       in
       {
         devShells.default = pkgs.devshell.mkShell {
-          packages = with pkgs; [ go gotools golangci-lint gopls gopkgs go-outline gomod2nix.packages.${system}.default ];
+          packages = with pkgs; [ go gotools golangci-lint gopls gopkgs go-outline gomod2nix.packages.${system}.default clojure clojure-lsp temurin-bin neovim];
           commands = [
             {
               name = "update-gomod2nix";
               help = "update gomod2nix.toml";
               command = "gomod2nix";
             }
-	  ];
+          ];
         };
         packages = rec {
           default = pkgs.buildGoApplication {
