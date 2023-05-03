@@ -16,5 +16,5 @@ RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o babashka-pod-docker
 FROM alpine:3.17
 ARG version
 COPY repository/ /root/.babashka/pods/repository
-COPY --from=build /app/babashka-pod-docker /root/.babashka/pods/repository/docker/babashka-pod-docker/0.1.0
-RUN chmod 755 /root/.babashka/pods/repository/docker/babashka-pod-docker/0.1.0/babashka-pod-docker
+COPY --from=build /app/babashka-pod-docker /root/.babashka/pods/repository/docker/docker-tools/0.1.0
+RUN chmod 755 /root/.babashka/pods/repository/docker/docker-tools/0.1.0/babashka-pod-docker
