@@ -36,7 +36,7 @@
           ];
         };
         packages = rec {
-          default = pkgs.buildGoApplication {
+          app = pkgs.buildGoApplication {
             pname = "babashka-pod-docker";
             version = "0.0.1";
             src = ./.;
@@ -49,11 +49,16 @@
             name = "docker-pod";
             tag = "latest";
             config = {
-              Cmd = [ "${default}/bin/babashka-pod-docker" ];
+              Cmd = [ "${app}/bin/babashka-pod-docker" ];
             };
           };
 
-          default-linux = default.overrideAttrs (old: old // { GOOS = "linux"; GOARCH = "arm64"; });
+          default-linux = app.overrideAttrs (old: old // { GOOS = "linux"; GOARCH = "arm64"; });
+
+	  default = pkgs.writeShellScriptBin "entrypoint" ''
+	    ${app}/bin/babashka-pod-docker
+	  '';
+
           docker-arm64 = pkgs.dockerTools.buildImage {
             name = "docker-pod";
             tag = "latest";

@@ -9,7 +9,6 @@ RUN \
     --mount=type=cache,target=/root/.cache \
     --mount=type=bind,target=/tmp/build \
     <<EOF 
-  ls -l /nix/store | wc
   nix \
     --extra-experimental-features "nix-command flakes" \
     --extra-substituters "http://host.docker.internal?priority=10" \
@@ -26,4 +25,4 @@ WORKDIR /app
 
 COPY --from=builder /tmp/nix-store-closure /nix/store
 COPY --from=builder /tmp/output/ /app/
-ENTRYPOINT ["/app/result/bin/babashka-pod-docker"]
+ENTRYPOINT ["/app/result/bin/entrypoint"]
