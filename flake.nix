@@ -13,7 +13,7 @@
         dir = ./.;
         name = "babashka-pod-docker";
         version = "0.0.1";
-        custom-packages = pkgs: packages:
+        package-overlay = pkgs: packages:
           packages // {
             default = pkgs.writeShellScriptBin "entrypoint" ''
               	    ${packages.app}/bin/babashka-pod-docker
