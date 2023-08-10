@@ -4,6 +4,7 @@ import (
 	"github.com/docker/distribution/reference"
 	"github.com/docker/index-cli-plugin/lsp"
 	"github.com/moby/buildkit/frontend/dockerfile/parser"
+	"github.com/kballard/go-shellquote"
 
 	//"reflect"
 	"crypto/sha256"
@@ -121,6 +122,9 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 							Name: "parse-dockerfile",
 						},
 						{
+							Name: "parse-shellwords",
+						},
+						{
 							Name: "sbom",
 							Code: `
 (defn sbom
@@ -176,6 +180,12 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			}
 			reader := strings.NewReader(args[0])
 			return parser.Parse(reader)
+		case "docker.tools/parse-shellwords":
+			args := []string{}
+			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
+				return nil, err
+			}
+			return shellquote.Split(args[0])
 		case "docker.tools/generate-sbom":
 			args := []string{}
 
@@ -207,6 +217,7 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			}
 
 			return "done", nil
+
 
 		default:
 			return nil, fmt.Errorf("Unknown var %s", message.Var)

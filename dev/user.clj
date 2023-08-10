@@ -24,9 +24,11 @@
 
 (comment
   (pods/load-pod 'docker.tools "0.1.0")
+  (pods/load-pod "result/bin/babashka-pod-docker")
 
   (require '[docker.tools :as docker])
 
+  (pods/unload-pod {:pod/id "docker.tools"})
 
 ;; parse image names using github.com/docker/distribution
 ;; turns golang structs into clojure maps
@@ -39,18 +41,17 @@
     ;; invalid reference format
       (println (.getMessage e))))
 
-
 ;; parse dockerfiles using github.com/moby/buildkit
 ;; returns the Result struct transformed to a clojure map
   (docker/parse-dockerfile "FROM \\\n    gcr.io/whatever:tag\nCMD [\"run\"]")
 
-
 ;; run sbom generation on local image
-  (docker/sbom "vonwig/clojure-base:jdk17" (fn [event] (println event)))
+  (docker/sbom "mongo@sha256:9c8a0a019671ed7d402768d4df6dddcc898828e21e9f7b90a34b55fe8ca676ac"
+               (fn [event]
+                   (println "event " event)))
 
-
-  (docker/hashes "vonwig/malware1:latest" (fn [event] (println event)))
-  )
+  (docker/hashes "vonwig/malware1:latest"
+                 (fn [event] (println event))))
 
 (defn generate-sbom
   [image]
@@ -69,5 +70,4 @@
    "docker.tools/generate-sbom"
    ["ubuntu:latest" "" ""]
    {})
-  (generate-sbom "alpine")
-  )
+  (generate-sbom "alpine"))
