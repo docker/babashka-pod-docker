@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    tags:
+    branches:
       - '*'
 
 jobs:
@@ -26,6 +26,6 @@ jobs:
         goarch: ${{ matrix.goarch }}
         goversion: 1.19.1
         binary_name: "babashka-pod-docker"
-        release_tag: "0.1.0"
+        release_tag: "0.2.0"
         overwrite: TRUE
         compress_assets: OFF
