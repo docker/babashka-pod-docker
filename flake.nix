@@ -1,5 +1,5 @@
 {
-  description = "Docker Pod v0.2.0";
+  description = "Docker Pod v0.2.0-1";
 
   inputs = {
     platform-engineering.url = "github:slimslenderslacks/nix-modules";
