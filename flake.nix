@@ -12,7 +12,7 @@
         inherit nixpkgs;
         dir = ./.;
         name = "babashka-pod-docker";
-        version = "0.0.1";
+        version = "0.2.0";
         package-overlay = pkgs: packages:
           packages // {
             default = pkgs.writeShellScriptBin "entrypoint" ''
