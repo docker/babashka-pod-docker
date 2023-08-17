@@ -46,12 +46,12 @@ jobs:
           tags: |
             latest
 
-      - name: Setup
-        uses: docker/actions/setup-go@setup-go/v1.3.0
-        id: setup_go
+      - name: Generate app token
+        id: app_token
+        uses: tibdex/github-app-token@v1
         with:
           app_id: ${{ secrets.HUB_PLATFORM_APP_ID }}
-          app_private_key: ${{ secrets.HUB_PLATFORM_APP_PRIVATE_KEY }}
+          private_key: ${{ secrets.HUB_PLATFORM_APP_PRIVATE_KEY }}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -65,4 +65,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            "gitghatoken=${{ steps.setup_go.outputs.token }}"
+            "gitghatoken=${{ steps.app_token.outputs.token }}"
