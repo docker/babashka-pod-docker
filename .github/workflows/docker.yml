@@ -45,7 +45,6 @@ jobs:
             org.opencontainers.image.revision=${{ env.SHA }}
           tags: |
             latest
-            ${{github.ref_name}}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -59,4 +58,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            "gitghatoken=${{ secrets.GIT_GHA_TOKEN }}"
+            "gitghatoken=${{ secrets.GITHUB_TOKEN }}"
