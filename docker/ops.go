@@ -3,8 +3,9 @@ package docker
 import (
 	"github.com/docker/distribution/reference"
 	"github.com/docker/index-cli-plugin/lsp"
-	"github.com/moby/buildkit/frontend/dockerfile/parser"
+	"github.com/docker/scout-cli-plugin/sbom"
 	"github.com/kballard/go-shellquote"
+	"github.com/moby/buildkit/frontend/dockerfile/parser"
 
 	//"reflect"
 	"crypto/sha256"
@@ -60,7 +61,7 @@ func generate_sbom(message *babashka.Message, image string, username string, pas
 	go func() error {
 		for {
 			tx, ok := <-tx_channel
-			if (ok && tx != "") {
+			if ok && tx != "" {
 				err := babashka.WriteNotDoneInvokeResponse(message, tx)
 				if err != nil {
 					babashka.WriteErrorResponse(message, err)
@@ -70,7 +71,7 @@ func generate_sbom(message *babashka.Message, image string, username string, pas
 				break
 			}
 		}
-		babashka.WriteInvokeResponse(message, "done");
+		babashka.WriteInvokeResponse(message, "done")
 		return nil
 	}()
 
@@ -217,7 +218,18 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 			}
 
 			return "done", nil
+		case "docker.tools/scout-push":
+			args := []string{}
+			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
+				return nil, err
+			}
 
+			err := sbom.NewIndexer()
+			if err != nil {
+				babashka.WriteErrorResponse(message, err)
+			}
+
+			return "done", nil
 
 		default:
 			return nil, fmt.Errorf("Unknown var %s", message.Var)
