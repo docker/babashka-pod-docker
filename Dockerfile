@@ -20,7 +20,7 @@ RUN \
   cp -R $(nix-store -qR /tmp/output/result) /tmp/nix-store-closure
 EOF
 
-FROM scratch
+FROM scratch as build
 
 WORKDIR /app
 
