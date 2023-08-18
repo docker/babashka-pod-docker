@@ -2,6 +2,13 @@ FROM golang:1.19-alpine AS build
 
 RUN apk --no-cache add git
 
+ENV GOPRIVATE=github.com/docker
+RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+RUN --mount=type=secret,id=gitghatoken \
+    (test -f /run/secrets/gitghatoken && \
+    git config --global url."https://x-access-token:$(cat /run/secrets/gitghatoken)@github.com/docker".insteadOf "https://github.com/docker" || \
+    git config --global url."git@github.com:docker/".insteadOf "https://github.com/docker/")
+
 WORKDIR /app
 
 COPY go.mod ./
@@ -12,13 +19,6 @@ RUN go mod download
 COPY main.go ./
 COPY docker/ ./docker/
 COPY babashka/ ./babashka/
-
-ENV GOPRIVATE=github.com/docker
-RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
-RUN --mount=type=secret,id=gitghatoken \
-    (test -f /run/secrets/gitghatoken && \
-    git config --global url."https://x-access-token:$(cat /run/secrets/gitghatoken)@github.com/docker".insteadOf "https://github.com/docker" || \
-    git config --global url."git@github.com:docker/".insteadOf "https://github.com/docker/")
 
 RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o babashka-pod-docker
 
