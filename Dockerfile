@@ -1,6 +1,6 @@
 FROM golang:1.19-alpine AS build
 
-RUN apk --no-cache add git
+RUN apk --no-cache add git openssh-client
 
 ENV GOPRIVATE=github.com/docker
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
