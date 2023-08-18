@@ -4,17 +4,14 @@ RUN apk --no-cache add git openssh-client
 
 ENV GOPRIVATE=github.com/docker
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
-RUN --mount=type=secret,id=gitghatoken \
-    (test -f /run/secrets/gitghatoken && \
-    git config --global url."https://x-access-token:$(cat /run/secrets/gitghatoken)@github.com/docker".insteadOf "https://github.com/docker" || \
-    git config --global url."git@github.com:docker/".insteadOf "https://github.com/docker/")
+RUN --mount=type=secret,id=gitghatoken ( git config --global url."https://x-access-token:$(cat /run/secrets/gitghatoken)@github.com/docker".insteadOf "https://github.com/docker")
 
 WORKDIR /app
 
 COPY go.mod ./
 COPY go.sum ./
 
-RUN go mod download
+RUN GOPRIVATE=github.com/docker go mod download
 
 COPY main.go ./
 COPY docker/ ./docker/
