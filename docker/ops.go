@@ -161,6 +161,24 @@ func ProcessMessage(message *babashka.Message) (any, error) {
                               (println "ERROR:" ex-message)))
 			      :done    (fn [] (cb {:status "done"}))}})))`,
 						},
+						{
+							Name: "scout-push",
+							Code: `
+(defn scout-push
+  ([image cb]
+   (hashes image cb {}))
+  ([image cb opts]
+   (babashka.pods/invoke
+     "docker.tools"
+     'docker.tools/scout-push
+     [image]
+     {:handlers {:success (fn [event]
+                            (cb event))
+                 :error   (fn [{:keys [:ex-message :ex-data]}]
+                            (binding [*out* *err*]
+                              (println "ERROR:" ex-message)))
+			      :done    (fn [] (cb {:status "done"}))}})))`,
+						},
 					},
 				},
 			},
