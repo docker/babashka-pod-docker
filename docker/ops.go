@@ -3,7 +3,7 @@ package docker
 import (
 	"github.com/docker/distribution/reference"
 	"github.com/docker/index-cli-plugin/lsp"
-	"github.com/docker/scout-cli-plugin/sbom"
+	"github.com/docker/scout-cli-plugin/push"
 	"github.com/kballard/go-shellquote"
 	"github.com/moby/buildkit/frontend/dockerfile/parser"
 
@@ -104,6 +104,13 @@ func generate_hashes(message *babashka.Message, s string) error {
 	}()
 
 	return lsp.New().SendFileHashes(s, tx_channel)
+}
+
+func scout_push(message *babashka.Message, image string, namespace string, authToken string, username string, password string) error {
+	os.Setenv("DOCKER_SCOUT_REGISTRY_USER", username)
+	os.Setenv("DOCKER_SCOUT_REGISTRY_PASSWORD", password)
+
+	return push.Push(image, namespace, authToken)
 }
 
 func ProcessMessage(message *babashka.Message) (any, error) {
@@ -242,7 +249,7 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 				return nil, err
 			}
 
-			err := sbom.NewIndexer()
+			err := scout_push(message, args[0], args[1], args[2], args[3], args[4])
 			if err != nil {
 				babashka.WriteErrorResponse(message, err)
 			}
