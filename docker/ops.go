@@ -56,7 +56,7 @@ func parse_uri(s string) (Reference, error) {
 	return Reference{Path: path, Domain: domain, Tag: tag, Digest: digest}, err
 }
 
-func scout_push(message *babashka.Message, image string, namespace string, authToken string, username string, password string) error {
+func scout_push(message *babashka.Message, image string, organization string, authToken string, username string, password string) error {
 	os.Setenv("DOCKER_SCOUT_REGISTRY_USER", username)
 	os.Setenv("DOCKER_SCOUT_REGISTRY_PASSWORD", password)
 
