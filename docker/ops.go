@@ -60,7 +60,7 @@ func scout_push(message *babashka.Message, image string, organization string, au
 	os.Setenv("DOCKER_SCOUT_REGISTRY_USER", username)
 	os.Setenv("DOCKER_SCOUT_REGISTRY_PASSWORD", password)
 
-	return push.Push(image, namespace, authToken)
+	return push.Push(image, organization, authToken)
 }
 
 func ProcessMessage(message *babashka.Message) (any, error) {
