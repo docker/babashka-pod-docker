@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/atomist-skills/go-skill v0.0.6-0.20221221214636-a7de163fd901
 	github.com/docker/distribution v2.8.2+incompatible
-	github.com/docker/scout-cli-plugin v0.22.4-0.20230821104039-f53ee5b6c67c
+	github.com/docker/scout-cli-plugin v0.22.4-0.20230823191118-de521951e3ba
 	github.com/jackpal/bencode-go v1.0.0
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
 	github.com/moby/buildkit v0.11.4
@@ -45,7 +45,7 @@ require (
 	github.com/anchore/go-struct-converter v0.0.0-20221118182256-c68fdcfa2092 // indirect
 	github.com/anchore/packageurl-go v0.1.1-0.20230104203445-02e0a6721501 // indirect
 	github.com/anchore/stereoscope v0.0.0-20230727211946-d1f3d766295e // indirect
-	github.com/anchore/syft v0.86.1 // indirect
+	github.com/anchore/syft v0.87.1 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/aquasecurity/go-dep-parser v0.0.0-20220626060741-179d0b167e5f // indirect
 	github.com/aquasecurity/go-pep440-version v0.0.0-20210121094942-22b2f8951d46 // indirect
@@ -176,7 +176,7 @@ require (
 	github.com/ulikunitz/xz v0.5.10 // indirect
 	github.com/vbatts/go-mtree v0.5.3 // indirect
 	github.com/vbatts/tar-split v0.11.3 // indirect
-	github.com/vifraa/gopom v0.2.2 // indirect
+	github.com/vifraa/gopom v1.0.0 // indirect
 	github.com/wagoodman/go-partybus v0.0.0-20230516145632-8ccac152c651 // indirect
 	github.com/wagoodman/go-progress v0.0.0-20230301185719-21920a456ad5 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
