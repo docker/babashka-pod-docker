@@ -25,10 +25,15 @@
 (comment
   (pods/load-pod 'docker.tools "0.1.0")
   (pods/load-pod "result/bin/babashka-pod-docker")
+  (pods/load-pod "result/bin/entrypoint")
 
   (require '[docker.tools :as docker])
 
   (pods/unload-pod {:pod/id "docker.tools"})
+
+;; ignore patterns
+  (def patterns (docker/dockerignore-patterns (slurp "/Users/slim/vonwig/nodejs-service/.dockerignore")))
+  (docker/dockerignore-matches (assoc patterns :path "node_modules/hey"))
 
 ;; parse image names using github.com/docker/distribution
 ;; turns golang structs into clojure maps

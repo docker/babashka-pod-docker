@@ -361,6 +361,9 @@ schema = 3
   [mod."github.com/moby/locker"]
     version = "v1.0.1"
     hash = "sha256-OcpbO3fLe0WtLDZFF1ntxoEBlEDjyoA8q8mVAQ0TLB8="
+  [mod."github.com/moby/patternmatcher"]
+    version = "v0.6.0"
+    hash = "sha256-ny3L8ktj8cyN41CEJhaRT74Vi8HpXXsbTvlrw/Tl5+g="
   [mod."github.com/moby/sys/mountinfo"]
     version = "v0.6.2"
     hash = "sha256-Dz2dYMPP8dmijrrbG28HIdjXzgkPw4KVsMbdKqhd4Uk="

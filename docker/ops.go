@@ -3,8 +3,10 @@ package docker
 import (
 	"github.com/docker/distribution/reference"
 	"github.com/docker/index-cli-plugin/lsp"
-	"github.com/moby/buildkit/frontend/dockerfile/parser"
 	"github.com/kballard/go-shellquote"
+	"github.com/moby/buildkit/frontend/dockerfile/parser"
+	"github.com/moby/patternmatcher"
+	"github.com/moby/patternmatcher/ignorefile"
 
 	//"reflect"
 	"crypto/sha256"
@@ -26,6 +28,22 @@ type Reference struct {
 
 type Error struct {
 	Error string `json:"error"`
+}
+
+type Ignore struct {
+	Patterns []string `json:"patterns"`
+}
+
+func patterns(s string) (Ignore, error) {
+	patterns, err := ignorefile.ReadAll(strings.NewReader(s))
+	if err != nil {
+		return Ignore{}, err
+	}
+	return Ignore{Patterns: patterns}, err
+}
+
+func matches(path string, patterns []string) (bool, error) {
+	return patternmatcher.MatchesOrParentMatches(path, patterns)
 }
 
 func parse_uri(s string) (Reference, error) {
@@ -60,7 +78,7 @@ func generate_sbom(message *babashka.Message, image string, username string, pas
 	go func() error {
 		for {
 			tx, ok := <-tx_channel
-			if (ok && tx != "") {
+			if ok && tx != "" {
 				err := babashka.WriteNotDoneInvokeResponse(message, tx)
 				if err != nil {
 					babashka.WriteErrorResponse(message, err)
@@ -70,7 +88,7 @@ func generate_sbom(message *babashka.Message, image string, username string, pas
 				break
 			}
 		}
-		babashka.WriteInvokeResponse(message, "done");
+		babashka.WriteInvokeResponse(message, "done")
 		return nil
 	}()
 
@@ -123,6 +141,12 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 						},
 						{
 							Name: "parse-shellwords",
+						},
+						{
+							Name: "dockerignore-patterns",
+						},
+						{
+							Name: "dockerignore-matches",
 						},
 						{
 							Name: "sbom",
@@ -218,6 +242,25 @@ func ProcessMessage(message *babashka.Message) (any, error) {
 
 			return "done", nil
 
+		case "docker.tools/dockerignore-patterns":
+			args := []string{}
+			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
+				return nil, err
+			}
+
+			return patterns(args[0])
+
+		case "docker.tools/dockerignore-matches":
+			type MyType struct {
+				Path     string   `json:"path"`
+				Patterns []string `json:"patterns"`
+			}
+			args := []MyType{}
+			if err := json.Unmarshal([]byte(message.Args), &args); err != nil {
+				return nil, err
+			}
+
+			return matches(args[0].Path, args[0].Patterns)
 
 		default:
 			return nil, fmt.Errorf("Unknown var %s", message.Var)

@@ -7,7 +7,9 @@ require (
 	github.com/docker/distribution v2.8.1+incompatible
 	github.com/docker/index-cli-plugin v0.0.34-0.20230213201827-11b2a8c1eaa7
 	github.com/jackpal/bencode-go v1.0.0
+	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
 	github.com/moby/buildkit v0.11.4
+	github.com/moby/patternmatcher v0.6.0
 	github.com/sirupsen/logrus v1.9.0
 )
 
@@ -108,7 +110,6 @@ require (
 	github.com/jedib0t/go-pretty/v6 v6.4.0 // indirect
 	github.com/jinzhu/copier v0.3.2 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
-	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
 	github.com/klauspost/compress v1.15.12 // indirect
 	github.com/klauspost/pgzip v1.2.5 // indirect
