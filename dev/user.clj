@@ -34,6 +34,12 @@
 ;; ignore patterns
   (def patterns (docker/dockerignore-patterns (slurp "/Users/slim/vonwig/nodejs-service/.dockerignore")))
   (docker/dockerignore-matches (assoc patterns :path "node_modules/hey"))
+  (docker/dockerignore-matches (assoc patterns :path "nodes"))
+  (docker/dockerignore-matches (assoc patterns :path "Dockerfile"))
+  (docker/dockerignore-matches (assoc patterns :path "blah/crap/npm-debug.log"))
+  (docker/dockerignore-matches (assoc patterns :path "blah/.vscode/hello.txt"))
+  (docker/dockerignore-matches (assoc patterns :path "src/jim/main.clj"))
+                                                                
 
 ;; parse image names using github.com/docker/distribution
 ;; turns golang structs into clojure maps

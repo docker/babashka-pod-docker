@@ -15,6 +15,10 @@
 **/.toolstarget
 **/.vs
 **/.vscode
+**/.direnv
+**/.cpcache
+**/.clj-kondo
+**/.github
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
