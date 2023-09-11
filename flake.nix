@@ -3,7 +3,7 @@
 
   inputs = {
     platform-engineering.url = "github:slimslenderslacks/nix-modules";
-    nixpkgs.url = "github:NixOS/nixpkgs/release-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = { nixpkgs, ... }@inputs:
