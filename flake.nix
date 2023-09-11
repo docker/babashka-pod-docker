@@ -2,7 +2,10 @@
   description = "Docker Pod v0.2.0-1";
 
   inputs = {
-    platform-engineering.url = "github:slimslenderslacks/nix-modules";
+    platform-engineering = {
+      url = "github:slimslenderslacks/nix-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
