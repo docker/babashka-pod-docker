@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/atomist-skills/go-skill v0.0.6-0.20221221214636-a7de163fd901
-	github.com/docker/distribution v2.8.1+incompatible
+	github.com/docker/distribution v2.8.2+incompatible
 	github.com/docker/index-cli-plugin v0.0.34-0.20230213201827-11b2a8c1eaa7
 	github.com/jackpal/bencode-go v1.0.0
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
