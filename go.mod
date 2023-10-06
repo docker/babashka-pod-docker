@@ -14,7 +14,8 @@ require (
 )
 
 require (
-	cloud.google.com/go/compute v1.10.0 // indirect
+	cloud.google.com/go/compute v1.15.1 // indirect
+	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	github.com/Azure/azure-sdk-for-go v66.0.0+incompatible // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/Azure/go-autorest v14.2.0+incompatible // indirect
@@ -49,7 +50,7 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.0.2 // indirect
 	github.com/briandowns/spinner v1.12.0 // indirect
-	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/cloudflare/circl v1.1.0 // indirect
 	github.com/containerd/cgroups v1.0.4 // indirect
 	github.com/containerd/containerd v1.6.18 // indirect
@@ -164,8 +165,8 @@ require (
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/cobra v1.6.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/stretchr/objx v0.4.0 // indirect
-	github.com/stretchr/testify v1.8.0 // indirect
+	github.com/stretchr/objx v0.5.0 // indirect
+	github.com/stretchr/testify v1.8.1 // indirect
 	github.com/sylabs/sif/v2 v2.8.1 // indirect
 	github.com/sylabs/squashfs v0.6.1 // indirect
 	github.com/therootcompany/xz v1.0.1 // indirect
@@ -180,7 +181,7 @@ require (
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
 	github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
-	go.opencensus.io v0.23.0 // indirect
+	go.opencensus.io v0.24.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
@@ -188,7 +189,7 @@ require (
 	golang.org/x/exp v0.0.0-20220823124025-807a23277127 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
 	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/oauth2 v0.0.0-20221006150949-b44042a4b9c1 // indirect
+	golang.org/x/oauth2 v0.4.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/term v0.5.0 // indirect
@@ -197,8 +198,8 @@ require (
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	gonum.org/v1/gonum v0.7.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20221010155953-15ba04fc1c0e // indirect
-	google.golang.org/grpc v1.50.1 // indirect
+	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
+	google.golang.org/grpc v1.53.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/neurosnap/sentences.v1 v1.0.6 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
