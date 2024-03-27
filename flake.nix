@@ -6,7 +6,7 @@
       url = "github:slimslenderslacks/nix-modules";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
   outputs = { nixpkgs, ... }@inputs:
